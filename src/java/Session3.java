@@ -28,12 +28,12 @@ public class Session3 extends HttpServlet {
                            
             if (contra3.equals(pas3)){                
                 paginaDestino = Constantes.PAGINA_EXITO;
+                request.getRequestDispatcher(paginaDestino).forward(request, response);
                 request.getSession().setAttribute("nivel",0);
-                response.getWriter().println("HAS GANADO");
             }
             else{
                 paginaDestino = Constantes.PAGINA_ERROR;
-                response.getWriter().println("mal hecho el nivel 3");
+                request.getRequestDispatcher(paginaDestino).forward(request, response);
                 request.getSession().setAttribute("nivel",0);
             }
         }

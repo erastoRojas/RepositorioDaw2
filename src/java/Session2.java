@@ -16,64 +16,60 @@ public class Session2 extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+               
+        String password1 = "1";
+        String password2 = "2";
+        String password3 = "3";
         
-        String contraseña;  
-        String contraseña2;
-        String contraseña3;
-        
-        String pas1 = "1";
-        String pas2 = "2";
-        String pas3 = "3";
         String paginaDestino = "";
         
-        contraseña = request.getParameter("pass1");
-        contraseña2 = request.getParameter("pass2");
-        contraseña3 = request.getParameter("pass3");
+        String pass1 = request.getParameter("pass1");
+        String pass2 = request.getParameter("pass2");
+        String pass3 = request.getParameter("pass3");
              
         if ((request.getParameter("pass1")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 1)){
                            
-            if (contraseña.equals(pas1)){                
-                paginaDestino = Constantes.PAGINA_INTERMEDIO;
+            if (pass1.equals(password1)){    
                 request.getSession().setAttribute("nivel",2);
-                response.getWriter().println("bien hecho, nivel 1 superado");
+                paginaDestino = Constantes.PAGINA_INTERMEDIO;
+                request.getRequestDispatcher(paginaDestino).forward(request, response);
             }
             else{
                 paginaDestino = Constantes.PAGINA_ERROR;
-                response.getWriter().println("mal hecho el nivel 1");
+                request.getRequestDispatcher(paginaDestino).forward(request, response);
                 request.getSession().setAttribute("nivel",0);
             }
         }
         
         if ((request.getParameter("pass2")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 2)){
                            
-            if (contraseña2.equals(pas2)){                
+            if (pass2.equals(password2)){                
                 paginaDestino = Constantes.PAGINA_INTERMEDIO;
+                request.getRequestDispatcher(paginaDestino).forward(request, response);
                 request.getSession().setAttribute("nivel",3);
-                response.getWriter().println("bien hecho, nivel 2 superado");
             }
             else{
                 paginaDestino = Constantes.PAGINA_ERROR;
-                response.getWriter().println("mal hecho el nivel 2");
+                request.getRequestDispatcher(paginaDestino).forward(request, response);
                 request.getSession().setAttribute("nivel",0);
             }
         }
                 
         if ((request.getParameter("pass3")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 3)){
                            
-            if (contraseña3.equals(pas3)){                
+            if (pass3.equals(password3)){                
                 paginaDestino = Constantes.PAGINA_INTERMEDIO;
+                request.getRequestDispatcher(paginaDestino).forward(request, response);
                 request.getSession().setAttribute("nivel",4);
-                response.getWriter().println("bien hecho, nivel 3 superado");
             }
             else{
                 paginaDestino = Constantes.PAGINA_ERROR;
-                response.getWriter().println("mal hecho el nivel 3");
+                request.getRequestDispatcher(paginaDestino).forward(request, response);
                 request.getSession().setAttribute("nivel",0);
             }
         }
                 
         else{
-           paginaDestino = Constantes.PAGINA_ERROR;
            response.getWriter().println("introduce algo");
         }
        

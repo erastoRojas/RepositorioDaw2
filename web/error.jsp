@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hay un error fatal</h1>
+        <h1>Hay un error</h1>
     </body>
 </html>

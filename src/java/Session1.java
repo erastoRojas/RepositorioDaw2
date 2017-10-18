@@ -9,7 +9,7 @@ import utils.Constantes;
 
 /**
  *
- * @author Erasto
+ * @author Erasto Rojas Sánchez
  */
 @WebServlet(urlPatterns = {"/Session1"})
 public class Session1 extends HttpServlet {
@@ -17,30 +17,29 @@ public class Session1 extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String contraseña;
-        String pass = "1234";
-       
-        String paginaDestino = Constantes.PAGINA_INTERMEDIO;
-        contraseña = request.getParameter("contrasena");
+        String password = "1234";
+        String pass;
+        String paginaDestino="";
+        
+        pass = request.getParameter("pass");
         request.getSession().setAttribute("nivel",0);
              
-        if (request.getParameter("contrasena")!= null && (Integer) request.getSession().getAttribute("nivel") == 0){
+        if (request.getParameter("pass")!= null && (Integer) request.getSession().getAttribute("nivel") == 0){
                            
-            if (contraseña.equals(pass)){                
-                paginaDestino = Constantes.PAGINA_INTERMEDIO;
+            if (password.equals(pass)){
                 request.getSession().setAttribute("nivel",1);
-                response.getWriter().println("bien hecho");
+                paginaDestino = Constantes.PAGINA_INTERMEDIO;               
+                request.getRequestDispatcher(paginaDestino).forward(request, response);
             }
             else{
+                request.getSession().setAttribute("nivel",0);
                 paginaDestino = Constantes.PAGINA_ERROR;
-                response.getWriter().println("mal hecho");
+                request.getRequestDispatcher(paginaDestino).forward(request, response);
             }
         }
         else{
-           paginaDestino = Constantes.PAGINA_ERROR;
            response.getWriter().println("introduce algo");
-        }
-       
+        }   
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
