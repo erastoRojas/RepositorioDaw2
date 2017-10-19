@@ -19,14 +19,13 @@ public class Session3 extends HttpServlet {
        
         String contra3;
        
-        String pas3 = "3";
         String paginaDestino = "";
         
         contra3 = request.getParameter("pas3");
              
         if ((request.getParameter("pas3")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 4)){
                            
-            if (contra3.equals(pas3)){                
+            if (contra3.equals(Constantes.pas3)){                
                 paginaDestino = Constantes.PAGINA_EXITO;
                 request.getRequestDispatcher(paginaDestino).forward(request, response);
                 request.getSession().setAttribute("nivel",0);
@@ -36,6 +35,9 @@ public class Session3 extends HttpServlet {
                 request.getRequestDispatcher(paginaDestino).forward(request, response);
                 request.getSession().setAttribute("nivel",0);
             }
+        }
+        else{
+           response.getWriter().println("introduce algo");
         }
     }
 

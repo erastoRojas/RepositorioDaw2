@@ -17,10 +17,6 @@ public class Session2 extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                
-        String password1 = "1";
-        String password2 = "2";
-        String password3 = "3";
-        
         String paginaDestino = "";
         
         String pass1 = request.getParameter("pass1");
@@ -29,7 +25,7 @@ public class Session2 extends HttpServlet {
              
         if ((request.getParameter("pass1")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 1)){
                            
-            if (pass1.equals(password1)){    
+            if (pass1.equals(Constantes.password1)){    
                 request.getSession().setAttribute("nivel",2);
                 paginaDestino = Constantes.PAGINA_INTERMEDIO;
                 request.getRequestDispatcher(paginaDestino).forward(request, response);
@@ -43,7 +39,7 @@ public class Session2 extends HttpServlet {
         
         if ((request.getParameter("pass2")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 2)){
                            
-            if (pass2.equals(password2)){                
+            if (pass2.equals(Constantes.password2)){                
                 paginaDestino = Constantes.PAGINA_INTERMEDIO;
                 request.getRequestDispatcher(paginaDestino).forward(request, response);
                 request.getSession().setAttribute("nivel",3);
@@ -57,7 +53,7 @@ public class Session2 extends HttpServlet {
                 
         if ((request.getParameter("pass3")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 3)){
                            
-            if (pass3.equals(password3)){                
+            if (pass3.equals(Constantes.password3)){                
                 paginaDestino = Constantes.PAGINA_INTERMEDIO;
                 request.getRequestDispatcher(paginaDestino).forward(request, response);
                 request.getSession().setAttribute("nivel",4);

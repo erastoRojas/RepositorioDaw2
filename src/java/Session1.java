@@ -17,7 +17,6 @@ public class Session1 extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String password = "1234";
         String pass;
         String paginaDestino="";
         
@@ -26,7 +25,7 @@ public class Session1 extends HttpServlet {
              
         if (request.getParameter("pass")!= null && (Integer) request.getSession().getAttribute("nivel") == 0){
                            
-            if (password.equals(pass)){
+            if (Constantes.password.equals(pass)){
                 request.getSession().setAttribute("nivel",1);
                 paginaDestino = Constantes.PAGINA_INTERMEDIO;               
                 request.getRequestDispatcher(paginaDestino).forward(request, response);
