@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,35 +8,31 @@ import utils.Constantes;
 
 /**
  *
- * @author Erasto
+ * @author Erasto Rojas Sánchez
  */
-@WebServlet(urlPatterns = {"/Session3"})
+
+@WebServlet(name = "Session3", urlPatterns = {"/session3"})
 public class Session3 extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
        
-        String contra3;
-       
-        String paginaDestino = "";
-        
-        contra3 = request.getParameter("pas3");
-             
-        if ((request.getParameter("pas3")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 4)){
+        String pwd = request.getParameter("pwd");
+        String paginaDestino = Constantes.PAGINA_ERROR;
+           
+        if ((request.getParameter("pwd")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 4)){
                            
-            if (contra3.equals(Constantes.pas3)){                
-                paginaDestino = Constantes.PAGINA_EXITO;
-                request.getRequestDispatcher(paginaDestino).forward(request, response);
+            if (pwd.equals(Constantes.PASSWORD3)){                
                 request.getSession().setAttribute("nivel",0);
+                paginaDestino = Constantes.PAGINA_EXITO;
             }
             else{
                 paginaDestino = Constantes.PAGINA_ERROR;
-                request.getRequestDispatcher(paginaDestino).forward(request, response);
                 request.getSession().setAttribute("nivel",0);
             }
         }
         else{
-           response.getWriter().println("introduce algo");
+           request.getRequestDispatcher(paginaDestino).forward(request, response);
         }
     }
 

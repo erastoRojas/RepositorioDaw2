@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,66 +8,57 @@ import utils.Constantes;
 
 /**
  *
- * @author Erasto
+ * @author Erasto Rojas Sánchez
  */
-@WebServlet(urlPatterns = {"/Session2"})
+
+@WebServlet(name = "Session2", urlPatterns = {"/session2"})
 public class Session2 extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
                
-        String paginaDestino = "";
+        int pwd1 = Integer.parseInt(request.getParameter("pwd1"));
+        int pwd2 = Integer.parseInt(request.getParameter("pwd2"));
+        int pwd3 = Integer.parseInt(request.getParameter("pwd3"));
         
-        String pass1 = request.getParameter("pass1");
-        String pass2 = request.getParameter("pass2");
-        String pass3 = request.getParameter("pass3");
+        String paginaDestino = Constantes.PAGINA_ERROR;
              
-        if ((request.getParameter("pass1")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 1)){
+        if ((request.getParameter("pwd1")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 1)){
                            
-            if (pass1.equals(Constantes.password1)){    
+            if (Constantes.PASSWORD21 == pwd1){    
                 request.getSession().setAttribute("nivel",2);
                 paginaDestino = Constantes.PAGINA_INTERMEDIO;
-                request.getRequestDispatcher(paginaDestino).forward(request, response);
             }
             else{
-                paginaDestino = Constantes.PAGINA_ERROR;
-                request.getRequestDispatcher(paginaDestino).forward(request, response);
                 request.getSession().setAttribute("nivel",0);
+                paginaDestino = Constantes.PAGINA_ERROR;         
             }
         }
         
-        if ((request.getParameter("pass2")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 2)){
+        if ((request.getParameter("pwd2")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 2)){
                            
-            if (pass2.equals(Constantes.password2)){                
-                paginaDestino = Constantes.PAGINA_INTERMEDIO;
-                request.getRequestDispatcher(paginaDestino).forward(request, response);
+            if (Constantes.PASSWORD22 == pwd2){                
                 request.getSession().setAttribute("nivel",3);
-            }
-            else{
-                paginaDestino = Constantes.PAGINA_ERROR;
-                request.getRequestDispatcher(paginaDestino).forward(request, response);
-                request.getSession().setAttribute("nivel",0);
-            }
-        }
-                
-        if ((request.getParameter("pass3")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 3)){
-                           
-            if (pass3.equals(Constantes.password3)){                
                 paginaDestino = Constantes.PAGINA_INTERMEDIO;
-                request.getRequestDispatcher(paginaDestino).forward(request, response);
-                request.getSession().setAttribute("nivel",4);
             }
             else{
-                paginaDestino = Constantes.PAGINA_ERROR;
-                request.getRequestDispatcher(paginaDestino).forward(request, response);
                 request.getSession().setAttribute("nivel",0);
+                paginaDestino = Constantes.PAGINA_ERROR;                
             }
         }
                 
-        else{
-           response.getWriter().println("introduce algo");
+        if ((request.getParameter("pwd3")!= null) && ((Integer) request.getSession().getAttribute("nivel") == 3)){
+                           
+            if (Constantes.PASSWORD23 == pwd3){                
+                request.getSession().setAttribute("nivel",4);
+                paginaDestino = Constantes.PAGINA_INTERMEDIO;
+            }
+            else{
+                request.getSession().setAttribute("nivel",0);
+                paginaDestino = Constantes.PAGINA_ERROR;                
+            }
         }
-       
+        request.getRequestDispatcher(paginaDestino).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

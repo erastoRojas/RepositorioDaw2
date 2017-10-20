@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,34 +10,30 @@ import utils.Constantes;
  *
  * @author Erasto Rojas Sánchez
  */
-@WebServlet(urlPatterns = {"/Session1"})
+
+@WebServlet(name = "Session1", urlPatterns = {"/session1"})
 public class Session1 extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+               
+        String pass = request.getParameter("pwd");
+        String paginaDestino = Constantes.PAGINA_ERROR;
         
-        String pass;
-        String paginaDestino="";
-        
-        pass = request.getParameter("pass");
         request.getSession().setAttribute("nivel",0);
              
-        if (request.getParameter("pass")!= null && (Integer) request.getSession().getAttribute("nivel") == 0){
+        if (request.getParameter("pwd")!= null && (Integer) request.getSession().getAttribute("nivel") == 0){
                            
-            if (Constantes.password.equals(pass)){
+            if (Constantes.PASSWORD1.equals(pass)){
                 request.getSession().setAttribute("nivel",1);
-                paginaDestino = Constantes.PAGINA_INTERMEDIO;               
-                request.getRequestDispatcher(paginaDestino).forward(request, response);
+                paginaDestino = Constantes.PAGINA_INTERMEDIO;   
             }
             else{
                 request.getSession().setAttribute("nivel",0);
                 paginaDestino = Constantes.PAGINA_ERROR;
-                request.getRequestDispatcher(paginaDestino).forward(request, response);
             }
         }
-        else{
-           response.getWriter().println("introduce algo");
-        }   
+        request.getRequestDispatcher(paginaDestino).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
